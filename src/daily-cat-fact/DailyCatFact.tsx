@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ReactLoading from 'react-loading';
+import { AppState } from '../redux/store/store';
 import CatFactDisplay from "./CatFactDisplay";
 
 interface DailyCatFactProps {
@@ -23,7 +24,7 @@ class DailyCatFact extends React.Component<DailyCatFactProps> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const { fact, loadingFact, loadingFactSuccess } = state.catFacts;
   return { fact, loadingFact, loadingFactSuccess };
 };

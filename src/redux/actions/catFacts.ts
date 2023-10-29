@@ -1,33 +1,13 @@
-export const FETCHING_CAT_FACT = 'FETCHING_CAT_FACT';
-export const FETCH_CAT_FACT_SUCCESS = 'FETCH_CAT_FACT_SUCCESS';
-export const FETCH_CAT_FACT_FAILURE = 'FETCH_CAT_FACT_FAILURE';
+import { fetchingCatFact, fetchCatFactSuccess, fetchCatFactFailure} from "../reducers/catFacts"
+import { AppDispatch } from '../store/store';
 
-function fetchingCatFactAction() {
-  return {
-    type: FETCHING_CAT_FACT
-  };
-}
-
-function fetchCatFactSuccessAction(fact: string) {
-  return {
-    type: FETCH_CAT_FACT_SUCCESS,
-    payload: fact
-  };
-}
-
-function fetchCatFactFailureAction() {
-  return {
-    type: FETCH_CAT_FACT_FAILURE,
-  };
-}
-
-export async function fetchCatFact(dispatch) {
-  dispatch(fetchingCatFactAction());
+export async function fetchCatFact(dispatch: AppDispatch) {
+  dispatch(fetchingCatFact());
   const fact = await window.catFactAPI.getFact()
   if(fact) {
-    dispatch(fetchCatFactSuccessAction(fact));
+    dispatch(fetchCatFactSuccess(fact));
   }
   else {
-    dispatch(fetchCatFactFailureAction());
+    dispatch(fetchCatFactFailure());
   }
 }

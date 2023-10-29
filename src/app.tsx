@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import NavBar from './navbar/Navbar';
 import DailyCatFact from './daily-cat-fact/DailyCatFact';
 import Favourites from './favourites/Favourites';
-import configureStore from './redux/store/configureStore';
+import store from './redux/store/store';
 import { fetchCatFact } from './redux/actions/catFacts';
   
 const router = createHashRouter([
@@ -21,8 +21,6 @@ const router = createHashRouter([
         Component: Favourites
     },
 ]);
-
-const store = configureStore();
 
 function App() {
     return (

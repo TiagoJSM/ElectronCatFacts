@@ -1,20 +1,24 @@
-import { FETCHING_CAT_FACT, FETCH_CAT_FACT_SUCCESS, FETCH_CAT_FACT_FAILURE } from '../actions/catFacts';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
-    fact: null,
-    loadingFact: false,
-    loadingFactSuccess: false,
-};
-
-export default function catFacts(state = initialState, action) {
-    switch (action.type) {
-        case FETCHING_CAT_FACT:
-            return { ...state, fact: null, loadingFact: true };
-        case FETCH_CAT_FACT_SUCCESS:
-            return { ...state, fact: action.payload, loadingFact: false, loadingFactSuccess: true };
-        case FETCH_CAT_FACT_FAILURE:
-            return { ...state, fact: null, loadingFact: false, loadingFactSuccess: false };
-        default:
-            return state;
+const catFactsSlice = createSlice({
+    name: "catFacts",
+    initialState: {
+        fact: null,
+        loadingFact: false,
+        loadingFactSuccess: false,
+    },
+    reducers: {
+        fetchingCatFact: () => {
+            return { fact: null, loadingFact: true, loadingFactSuccess: false };
+        },
+        fetchCatFactSuccess: (_, param: PayloadAction<string>) => {
+            return { fact: param.payload, loadingFact: false, loadingFactSuccess: true };
+        },
+        fetchCatFactFailure: () => {
+            return { fact: null, loadingFact: false, loadingFactSuccess: false };
+        },
     }
-}
+});
+
+export const { fetchingCatFact, fetchCatFactSuccess, fetchCatFactFailure } = catFactsSlice.actions
+export default catFactsSlice.reducer
