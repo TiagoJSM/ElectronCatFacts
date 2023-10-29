@@ -8,6 +8,18 @@ rules.push({
   use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
 });
 
+rules.push({
+  test: /\.(jpe?g|gif|png|svg)$/i,
+  use: [
+  {
+    loader: 'url-loader',
+    options: {
+      limit: 10000
+    }
+  }
+]
+});
+
 export const rendererConfig: Configuration = {
   module: {
     rules,
