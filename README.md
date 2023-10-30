@@ -8,7 +8,7 @@ An [Electron](https://www.electronjs.org/) application developed with Typescript
 
 ## Instructions
 - Run `yarn` to resolve all dependencies
-- Run `yarn` start to run the application
+- Run `yarn start` to run the application
 
 ## Unit tests
 - Run `yarn test`
