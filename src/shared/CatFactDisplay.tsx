@@ -5,30 +5,18 @@ interface ControlButtonProps {
   buttonClick: () => void;
 }
 
-class ControlButton extends React.Component<ControlButtonProps> {
-  render() {
-    const { buttonText, buttonClick } = this.props;
-    if (buttonText && buttonClick) {
-      return (<button onClick={buttonClick}>{buttonText}</button>);
-    }
-    return null;
-  }
-}
-
 interface ControlButtonsProps {
-  leftButtonText: string;
-  leftButtonClick: () => void;
-  rightButtonText: string;
-  rightButtonClick: () => void;
+  controlButtons: ControlButtonProps[];
 }
 
 class ControlButtons extends React.Component<ControlButtonsProps> {
   render() {
-    const { leftButtonText, leftButtonClick, rightButtonText, rightButtonClick } = this.props;
+    const { controlButtons } = this.props;
     return (
       <div>
-        <ControlButton buttonText={leftButtonText} buttonClick={leftButtonClick} />
-        <ControlButton buttonText={rightButtonText} buttonClick={rightButtonClick} />
+        {
+          controlButtons.map((cb, i) => (<button key={i} onClick={cb.buttonClick}>{cb.buttonText}</button>))
+        }
       </div>
     );
   }
@@ -37,10 +25,7 @@ class ControlButtons extends React.Component<ControlButtonsProps> {
 interface CatFactDisplayProps {
   fact: string;
   loadingFactSuccess: boolean;
-  leftButtonText: string;
-  leftButtonClick: () => void;
-  rightButtonText: string;
-  rightButtonClick: () => void;
+  controlButtons: ControlButtonProps[];
 }
 
 interface CatFactDisplayState {
@@ -56,7 +41,7 @@ export default class CatFactDisplay extends React.Component<CatFactDisplayProps,
   }
 
   render() {
-    const { fact, loadingFactSuccess, leftButtonText, leftButtonClick, rightButtonText, rightButtonClick } = this.props;
+    const { fact, loadingFactSuccess, controlButtons } = this.props;
     const { showControlButtons } = this.state;
 
     if (!loadingFactSuccess) {
@@ -69,7 +54,7 @@ export default class CatFactDisplay extends React.Component<CatFactDisplayProps,
         onMouseLeave={() => this.setState({ showControlButtons: false })}
       >
         <div>{fact}</div>
-        {showControlButtons ? (<ControlButtons leftButtonText={leftButtonText} leftButtonClick={leftButtonClick} rightButtonText={rightButtonText} rightButtonClick={rightButtonClick} />) : null}
+        {showControlButtons ? (<ControlButtons controlButtons={controlButtons} />) : null}
       </div>
     );
   }

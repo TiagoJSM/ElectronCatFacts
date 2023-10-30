@@ -18,12 +18,22 @@ interface DailyCatFactProps {
 class DailyCatFact extends React.Component<DailyCatFactProps> {
   render() {
     const { id, fact, loadingFact, loadingFactSuccess, fetchCatFact, addToFavourites } = this.props;
+    const controlButtonProps = [
+      {
+        buttonText: "Add to favourites",
+        buttonClick: () => addToFavourites(id)
+      },
+      {
+        buttonText: "Refresh",
+        buttonClick: fetchCatFact
+      }
+    ]
     return (
       <div>
         <h1>Daily Cat Fact</h1>
         {loadingFact ? 
           (<ReactLoading type="spin" color="#000" />) :
-          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} leftButtonText="Add to favourites" leftButtonClick={() => addToFavourites(id)} rightButtonText="Refresh" rightButtonClick={fetchCatFact} />)}
+          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} controlButtons={controlButtonProps} />)}
       </div>
     );
   }

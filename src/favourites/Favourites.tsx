@@ -12,33 +12,44 @@ interface FavouritesProps {
   favourites: Favourite[];
   loadingFact: boolean;
   loadingFactSuccess: boolean;
-  removeFromFavourites: (id: number) => void;    
+  removeFromFavourites: (id: number) => void;
 }
-  
-  class Favourites extends React.Component<FavouritesProps> {
-    render() {
-      const { favourites, loadingFact, loadingFactSuccess, removeFromFavourites } = this.props;
-      return (
-        <div>
-          <h1>Favourite Facts</h1>
-          {favourites.map((f, i) => (<CatFactDisplay key={i.toString()} fact={f.fact} loadingFactSuccess leftButtonText="Remove from favourites" leftButtonClick={() => removeFromFavourites(f.id)} rightButtonText={null} rightButtonClick={null} />))}
-          {/* {loadingFact ? 
+
+class Favourites extends React.Component<FavouritesProps> {
+  render() {
+    const { favourites, loadingFact, loadingFactSuccess, removeFromFavourites } = this.props;
+
+    return (
+      <div>
+        <h1>Favourite Facts</h1>
+        {
+          favourites.map((f, i) => {
+            const controlButtonProps = [
+              {
+                buttonText: "Remove from favourites",
+                buttonClick: () => removeFromFavourites(f.id)
+              }
+            ]
+            return (<CatFactDisplay key={i.toString()} fact={f.fact} loadingFactSuccess controlButtons={controlButtonProps} />);
+          })
+        }
+        {/* {loadingFact ? 
             (<ReactLoading type="spin" color="#000" />) :
             (favourites.map((f, i) => (<CatFactDisplay key={i.toString()} fact={f.fact} loadingFactSuccess={loadingFactSuccess} leftButtonText="Remove from favourites" leftButtonClick={() => removeFromFavourites(f.id)} rightButtonText={null} rightButtonClick={null} />)))} */}
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 
-  const mapStateToProps = (state: AppState) => {
-    const favourites = state.favourites.favourites;
-    return { favourites };
-  };
-  
-  const mapDispatchToProps = (dispatch: AppDispatch) => {
-    return {
-      removeFromFavourites: (id: number) => dispatch(removeFromFavourites(id))
-    }
+const mapStateToProps = (state: AppState) => {
+  const favourites = state.favourites.favourites;
+  return { favourites };
+};
+
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    removeFromFavourites: (id: number) => dispatch(removeFromFavourites(id))
   }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Favourites)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites)
