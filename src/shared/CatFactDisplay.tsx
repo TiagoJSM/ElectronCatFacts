@@ -27,8 +27,8 @@ class ControlButtons extends React.Component<ControlButtonsProps> {
     const { leftButtonText, leftButtonClick, rightButtonText, rightButtonClick } = this.props;
     return (
       <div>
-        <ControlButton buttonText={leftButtonText} buttonClick={leftButtonClick}/>
-        <ControlButton buttonText={rightButtonText} buttonClick={rightButtonClick}/>
+        <ControlButton buttonText={leftButtonText} buttonClick={leftButtonClick} />
+        <ControlButton buttonText={rightButtonText} buttonClick={rightButtonClick} />
       </div>
     );
   }
@@ -37,8 +37,10 @@ class ControlButtons extends React.Component<ControlButtonsProps> {
 interface CatFactDisplayProps {
   fact: string;
   loadingFactSuccess: boolean;
-  fetchCatFact: () => void;
-  addToFavourites: () => void;
+  leftButtonText: string;
+  leftButtonClick: () => void;
+  rightButtonText: string;
+  rightButtonClick: () => void;
 }
 
 interface CatFactDisplayState {
@@ -54,7 +56,7 @@ export default class CatFactDisplay extends React.Component<CatFactDisplayProps,
   }
 
   render() {
-    const { fact, loadingFactSuccess, fetchCatFact, addToFavourites } = this.props;
+    const { fact, loadingFactSuccess, leftButtonText, leftButtonClick, rightButtonText, rightButtonClick } = this.props;
     const { showControlButtons } = this.state;
 
     if (!loadingFactSuccess) {
@@ -62,12 +64,12 @@ export default class CatFactDisplay extends React.Component<CatFactDisplayProps,
     }
 
     return (
-      <div 
+      <div
         onMouseEnter={() => this.setState({ showControlButtons: true })}
-        onMouseLeave={() => this.setState({ showControlButtons: false })} 
+        onMouseLeave={() => this.setState({ showControlButtons: false })}
       >
         <div>{fact}</div>
-        {showControlButtons ? (<ControlButtons leftButtonText="Add to favourites" leftButtonClick={addToFavourites} rightButtonText="Refresh" rightButtonClick={fetchCatFact}/>) : null}
+        {showControlButtons ? (<ControlButtons leftButtonText={leftButtonText} leftButtonClick={leftButtonClick} rightButtonText={rightButtonText} rightButtonClick={rightButtonClick} />) : null}
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import ReactLoading from 'react-loading';
 import { AppState } from '../redux/store/store';
-import CatFactDisplay from "./CatFactDisplay";
+import CatFactDisplay from "../shared/CatFactDisplay";
 import { fetchCatFact, addToFavourites } from "../redux/effects/effects"
 import { AppDispatch } from '../redux/store/store';
 
@@ -23,7 +23,7 @@ class DailyCatFact extends React.Component<DailyCatFactProps> {
         <h1>Daily Cat Fact</h1>
         {loadingFact ? 
           (<ReactLoading type="spin" color="#000" />) :
-          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} fetchCatFact={fetchCatFact} addToFavourites={() => addToFavourites(id)} />)}
+          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} leftButtonText="Add to favourites" leftButtonClick={() => addToFavourites(id)} rightButtonText="Refresh" rightButtonClick={fetchCatFact} />)}
       </div>
     );
   }
