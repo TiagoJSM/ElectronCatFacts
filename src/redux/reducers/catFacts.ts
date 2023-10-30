@@ -3,19 +3,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const catFactsSlice = createSlice({
     name: "catFacts",
     initialState: {
+        id: null,
         fact: null,
         loadingFact: false,
         loadingFactSuccess: false,
     },
     reducers: {
         fetchingCatFact: () => {
-            return { fact: null, loadingFact: true, loadingFactSuccess: false };
+            return { id: null, fact: null, loadingFact: true, loadingFactSuccess: false };
         },
-        fetchCatFactSuccess: (_, param: PayloadAction<string>) => {
-            return { fact: param.payload, loadingFact: false, loadingFactSuccess: true };
+        fetchCatFactSuccess: (_, param: PayloadAction<{id: number, fact: string}>) => {
+            const { id, fact } = param.payload
+            return { id, fact, loadingFact: false, loadingFactSuccess: true };
         },
         fetchCatFactFailure: () => {
-            return { fact: null, loadingFact: false, loadingFactSuccess: false };
+            return { id: null, fact: null, loadingFact: false, loadingFactSuccess: false };
         },
     }
 });
