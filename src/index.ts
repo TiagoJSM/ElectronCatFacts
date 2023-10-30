@@ -13,7 +13,6 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
-  ipcMainSetup();
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
@@ -30,6 +29,8 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
+
+  ipcMainSetup(mainWindow);
 };
 
 // This method will be called when Electron has finished

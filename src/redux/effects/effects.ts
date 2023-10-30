@@ -1,5 +1,6 @@
-import { fetchingCatFact, fetchCatFactSuccess, fetchCatFactFailure } from "../reducers/catFacts"
-import { addToFavourites as addToFavouritesAction, removeFromFavourites as removeFromFavouritesAction } from "../reducers/favourites"
+import { fetchingCatFact, fetchCatFactSuccess, fetchCatFactFailure } from "../reducers/catFacts";
+import { addToFavourites as addToFavouritesAction, removeFromFavourites as removeFromFavouritesAction } from "../reducers/favourites";
+import { setUpdateFactTime as setUpdateFactTimeAction } from "../reducers/config";
 import { AppDispatch } from '../store/store';
 
 export async function fetchCatFact(dispatch: AppDispatch) {
@@ -21,4 +22,8 @@ export const addToFavourites = (id: number) => async (dispatch: AppDispatch) => 
 
 export const removeFromFavourites = (id: number) => async (dispatch: AppDispatch) => {
   dispatch(removeFromFavouritesAction(id));
+}
+
+export const setUpdateFactTime = (id: number) => async (dispatch: AppDispatch) => {
+  dispatch(setUpdateFactTimeAction(id));
 }

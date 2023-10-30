@@ -1,4 +1,4 @@
-const { net } = require('electron')
+import { net } from 'electron';
 
 export async function getRandomTodo() {
     const response = await net.fetch('https://dummyjson.com/todos/random');
