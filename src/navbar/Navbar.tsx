@@ -22,6 +22,7 @@ export default function NavBar() {
           <Nav className="me-auto">
             <Nav.Link href="#/">Cat Facts</Nav.Link>
             <Nav.Link href="#favourites">Favourites</Nav.Link>
+            <Nav.Link href="#config">Config</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
