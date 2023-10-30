@@ -1,11 +1,17 @@
 const { ipcMain } = require('electron')
 
-import { fetchRandomTodo } from './todoApi'
+import { IpcMainInvokeEvent } from 'electron';
+import { getRandomTodo, getTodo } from './todoApi'
 
-async function handleGetFact () {
-    return await fetchRandomTodo();
-  }
+async function handleGetRandomFact() {
+  return await getRandomTodo();
+}
 
-  export default function ipcMainSetup(){
-    ipcMain.handle('getFact', handleGetFact)
-  }
+async function handleGetFact(event: IpcMainInvokeEvent, id: number) {
+  return await getTodo(id);
+}
+
+export default function ipcMainSetup() {
+  ipcMain.handle('getRandomFact', handleGetRandomFact);
+  ipcMain.handle('getFact', handleGetFact);
+}

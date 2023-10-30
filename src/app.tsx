@@ -9,7 +9,7 @@ import NavBar from './navbar/Navbar';
 import DailyCatFact from './daily-cat-fact/DailyCatFact';
 import Favourites from './favourites/Favourites';
 import store from './redux/store/store';
-import { fetchCatFact } from './redux/effects/catFacts';
+import { fetchCatFact } from './redux/effects/effects';
   
 const router = createHashRouter([
     {

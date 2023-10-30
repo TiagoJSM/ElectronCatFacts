@@ -3,30 +3,42 @@ import { connect } from "react-redux";
 import ReactLoading from 'react-loading';
 import { AppState } from '../redux/store/store';
 import CatFactDisplay from "./CatFactDisplay";
+import { fetchCatFact, addToFavourites } from "../redux/effects/effects"
+import { AppDispatch } from '../redux/store/store';
 
 interface DailyCatFactProps {
+  id: number;
   fact: string;
   loadingFact: boolean;
   loadingFactSuccess: boolean;
+  fetchCatFact: () => void;
+  addToFavourites: (id: number) => void;    
 }
 
 class DailyCatFact extends React.Component<DailyCatFactProps> {
   render() {
-    const { fact, loadingFact, loadingFactSuccess } = this.props;
+    const { id, fact, loadingFact, loadingFactSuccess, fetchCatFact, addToFavourites } = this.props;
     return (
       <div>
         <h1>Daily Cat Fact</h1>
         {loadingFact ? 
           (<ReactLoading type="spin" color="#000" />) :
-          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} />)}
+          (<CatFactDisplay fact={fact} loadingFactSuccess={loadingFactSuccess} fetchCatFact={fetchCatFact} addToFavourites={() => addToFavourites(id)} />)}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: AppState) => {
-  const { fact, loadingFact, loadingFactSuccess } = state.catFacts;
-  return { fact, loadingFact, loadingFactSuccess };
+  const { id, fact, loadingFact, loadingFactSuccess } = state.catFacts;
+  return { id, fact, loadingFact, loadingFactSuccess };
 };
 
-export default connect(mapStateToProps)(DailyCatFact)
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    fetchCatFact: () => dispatch(fetchCatFact),
+    addToFavourites: (id: number) => dispatch(addToFavourites(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DailyCatFact)

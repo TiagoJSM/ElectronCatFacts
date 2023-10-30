@@ -4,5 +4,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('catFactAPI', {
-  getFact: () => ipcRenderer.invoke('getFact')
+  getRandomFact: () => ipcRenderer.invoke('getRandomFact'),
+  getFact: (id: number) => ipcRenderer.invoke('getFact', id),
 })

@@ -1,11 +1,21 @@
 const { net } = require('electron')
 
-export async function fetchRandomTodo() {
-    const response = await net.fetch('https://dummyjson.com/todos');
+export async function getRandomTodo() {
+    const response = await net.fetch('https://dummyjson.com/todos/random');
     if (response.ok) {
       const body = await response.json();
-      const randomIndex = Math.floor(Math.random() * body.todos.length);
-      return body.todos[randomIndex].todo;
+      const { id, todo } =  body;
+      return { id, fact: todo };
     }
     return null;
+}
+
+export async function getTodo(id: number) {
+  const response = await net.fetch(`https://dummyjson.com/todos/${id}`);
+  if (response.ok) {
+    const body = await response.json();
+    const { id, todo } =  body;
+    return { id, fact: todo };
+  }
+  return null;
 }
