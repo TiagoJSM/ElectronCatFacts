@@ -10,14 +10,12 @@ import { AppDispatch } from '../redux/store/store';
 
 interface FavouritesProps {
   favourites: Favourite[];
-  loadingFact: boolean;
-  loadingFactSuccess: boolean;
   removeFromFavourites: (id: number) => void;
 }
 
 class Favourites extends React.Component<FavouritesProps> {
   render() {
-    const { favourites, loadingFact, loadingFactSuccess, removeFromFavourites } = this.props;
+    const { favourites, removeFromFavourites } = this.props;
 
     return (
       <div>
@@ -33,9 +31,6 @@ class Favourites extends React.Component<FavouritesProps> {
             return (<CatFactDisplay key={i.toString()} fact={f.fact} loadingFactSuccess controlButtons={controlButtonProps} />);
           })
         }
-        {/* {loadingFact ? 
-            (<ReactLoading type="spin" color="#000" />) :
-            (favourites.map((f, i) => (<CatFactDisplay key={i.toString()} fact={f.fact} loadingFactSuccess={loadingFactSuccess} leftButtonText="Remove from favourites" leftButtonClick={() => removeFromFavourites(f.id)} rightButtonText={null} rightButtonClick={null} />)))} */}
       </div>
     );
   }
