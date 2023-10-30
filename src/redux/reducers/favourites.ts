@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Favourite {
+export interface Favourite {
     id: number,
     fact: string
 }
@@ -14,8 +14,8 @@ const favouritesSlice = createSlice({
         addToFavourites: (state: any, param: PayloadAction<Favourite>) => {
             state.favourites.push(param.payload);
         },
-        removeFromFavourites: (_, param: PayloadAction<number>) => {
-            return { favourites: [] };
+        removeFromFavourites: (state: any, param: PayloadAction<number>) => {
+            state.favourites = state.favourites.filter((f: Favourite) => f.id !== param.payload);
         }
     }
 });
